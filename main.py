@@ -19,7 +19,5 @@ def send_message(text):
         print(f"Status Code: {response.status_code}")
     except Exception as e:
         print(f"Error: {e}")
-
-if _name_ == "_main_":
-    # اینجا می‌تونی در آینده کدهای اسکرپ کردن خبر رو اضافه کنی
-    send_message("سلام! رباتِ من الان زنده‌ست و داره کار می‌کنه! 😉")
+print("Bot is starting...")
+# بقیه کدها...
