@@ -24,6 +24,4 @@ def send_message(text):
     except Exception as e:
         print(f"Error: {e}")
 
-if name == "main":
-    print("Bot is starting...")
-    send_message("سلام! رباتِ من با موفقیت اجرا شد!")
+print("Done")
