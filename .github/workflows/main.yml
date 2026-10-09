@@ -1,26 +1,43 @@
-name: angrr
+name: rubika-bot
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # این یعنی هر ۳۰ دقیقه
-  workflow_dispatch: # این دکمه رو بهت می‌ده که بتونی دستی هم اجراش کنی
+    - cron: "*/20 * * * *"   # هر ۲۰ دقیقه
+  workflow_dispatch:         # اجرای دستی از تب Actions
+
+permissions:
+  contents: write            # برای ذخیره state.json
+
+concurrency:
+  group: rubika-bot
+  cancel-in-progress: false
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: "3.11"
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install requirements
+        run: pip install -r requirements.txt
 
-      - name: Run Bot
+      - name: Run bot
         env:
           RUBIKA_TOKEN: ${{ secrets.RUBIKA_TOKEN }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: python main.py
+
+      - name: Save state
+        run: |
+          git config user.name "rubika-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add state.json || true
+          git diff --cached --quiet || (git commit -m "update state" && git push)
+
