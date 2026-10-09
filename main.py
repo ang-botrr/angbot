@@ -3,7 +3,7 @@ import requests
 
 def send_message(text):
     # این توکن باید توی تنظیماتِ Secret گیتهاب تعریف شده باشه
-    token = os.environ.get("CGECFE0LPXWGBDZFFSAIIIJMIHQDGLFULRYLUONIRBLRYEYMAXYJTMUIXTLQWEUQ")
+    token = os.environ.get("RUBIKA_TOKEN")
     chat_id = "@akbarvateknologi"
 
     # نکته: مطمئن شو این URL دقیقاً همون چیزیه که مستنداتِ رباتت گفته
