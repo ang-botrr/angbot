@@ -1,0 +1,26 @@
+name: Rubika Bot
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # این یعنی هر ۳۰ دقیقه
+  workflow_dispatch: # این دکمه رو بهت می‌ده که بتونی دستی هم اجراش کنی
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run Bot
+        env:
+          RUBIKA_TOKEN: ${{ secrets.RUBIKA_TOKEN }}
+        run: python main.py
